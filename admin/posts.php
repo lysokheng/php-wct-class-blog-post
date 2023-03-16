@@ -51,7 +51,51 @@ $posts = $GLOBALS['posts'];
                                     <th scope="col">Content</th>
                                     <th scope="col">Image</th>
                                     <th scope="col">
-                                        <a class="btn btn-primary" href="">New Post</a>
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="btn
+                                            btn-primary" data-bs-toggle="modal" data-bs-target="#modalNewPost">
+                                            + (New Post)
+                                        </button>
+
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="modalNewPost" tabindex="-1" aria-labelledby="modalNewPostLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h1 class="modal-title
+                                                            fs-5" id="modalNewPostLabel">Create
+                                                            new Post</h1>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form id="frmNewPost" action="" method="POST">
+                                                            <div class="mb-3">
+                                                                <label for="title" class="form-label">Post Title</label>
+                                                                <input type="text" class="form-control" id="title" placeholder="
+                                                                    Post Title">
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="content" class="form-label">Post
+                                                                    Content</label>
+                                                                <input type="text" class="form-control" id="content" placeholder="
+                                                            Post Content">
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="title" class="form-label">Post Image</label>
+                                                                <input type="text" class="form-control" id="title" placeholder="
+                                                                    Post Title">
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn
+                                                            btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                        <button type="button" id="btnNewPost" class="btn
+                                                            btn-primary">Save</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </th>
                                 </tr>
                             </thead>

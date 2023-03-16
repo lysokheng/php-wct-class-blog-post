@@ -1,13 +1,15 @@
 <?php
 
-class Post {
+class Post
+{
 
     public function __construct(
         public int $id,
         public String $title,
         public String $content,
         public String $imageUrl
-    ) {}
+    ) {
+    }
 }
 
 if (!isset($GLOBALS['posts'])) {
@@ -17,5 +19,3 @@ if (!isset($GLOBALS['posts'])) {
         new Post(3, 'Post 3', 'Content 3', 'https://fastly.picsum.photos/id/123/300/200.jpg?hmac=kXYDwT491zyy8kdoIlZfMs-IUzLA5VTv6DKX2dq5MO0')
     ];
 }
-
-?>
