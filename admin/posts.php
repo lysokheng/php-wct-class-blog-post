@@ -107,9 +107,9 @@
                             </thead>
                             <tbody>
                                 <?php
-                                if (count($posts)) {
+                                if (count($_SESSION['posts'])) {
                                     $count = 1;
-                                    foreach ($posts as $post) {
+                                    foreach ($_SESSION['posts'] as $post) {
                                         echo '
                                                     <tr>
                                                         <td>' . $count++ . '</td>

@@ -11,24 +11,22 @@ if (!isset($_SESSION['auth'])) {
     exit();
 }
 
-$posts = $GLOBALS['posts'];
+// $posts = $GLOBALS['posts'];
 // Query all posts from table
 
 if (isset($_POST['title']) && isset($_POST['content'])) {
-    $post = new Post($_POST['title'], $_POST['content'], $_POST['image']);
+    $post = new Post();
     $post->title = $_POST['title'];
     $post->content = $_POST['content'];
     $post->image = $_POST['image'];
 
-    if (!isset($posts)) {
-        $posts = array();
+    if (!isset($_SESSION['posts'])) {
+        $_SESSION['posts'] = array();
     }
 
-    if (is_array($posts)) {
-        array_push($posts, $post);
+    if (is_array($_SESSION['posts'])) {
+        array_push($_SESSION['posts'], $post);
     }
-
-    // header("Location: ../admin/posts.php");
 }
 
-var_dump($posts);
+var_dump($_SESSION['posts']);
