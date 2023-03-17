@@ -1,20 +1,4 @@
-<?php
-
-require_once '../models/Post.php';
-
-// Start PHP session
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-
-if (!isset($_SESSION['auth'])) {
-    header("Location: ../index.php");
-    exit();
-}
-
-$posts = $GLOBALS['posts'];
-// Query all posts from table
-?>
+<?php include 'process_form.php'; ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -29,8 +13,11 @@ $posts = $GLOBALS['posts'];
     <!-- Font Awesome icons (free version)-->
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
     <!-- Google fonts-->
-    <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet"
+        type="text/css" />
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800"
+        rel="stylesheet" type="text/css" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="../css/styles.css" rel="stylesheet" />
 </head>
@@ -42,6 +29,16 @@ $posts = $GLOBALS['posts'];
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-md-10">
                     <h2>Post list</h2>
+                    <form method="post" action="process_form.php">
+                        <label for="title">title</label>
+                        <input type="text" id="title" name="title"><br><br>
+                        <label for="content">content</label>
+                        <input type="text" id="content" name="content"><br><br>
+                        <label for="image">image</label>
+                        <input type="text" id="image" name="image"><br><br>
+                        <input type="submit" value="Submit">
+                    </form>
+
                     <div class="my-5">
                         <table class="table">
                             <thead>
@@ -58,40 +55,49 @@ $posts = $GLOBALS['posts'];
                                         </button>
 
                                         <!-- Modal -->
-                                        <div class="modal fade" id="modalNewPost" tabindex="-1" aria-labelledby="modalNewPostLabel" aria-hidden="true">
+                                        <div class="modal fade" id="modalNewPost" tabindex="-1"
+                                            aria-labelledby="modalNewPostLabel" aria-hidden="true"
+                                            action="../server/post.php" method="POST">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <h1 class="modal-title
                                                             fs-5" id="modalNewPostLabel">Create
                                                             new Post</h1>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <form id="frmNewPost" action="" method="POST">
+                                                        <form id="frmNewPost" action="" method="post">
                                                             <div class="mb-3">
                                                                 <label for="title" class="form-label">Post Title</label>
-                                                                <input type="text" class="form-control" id="title" placeholder="
-                                                                    Post Title">
+                                                                <input type="text" class="form-control" id="title"
+                                                                    name="title" placeholder="Post Title">
                                                             </div>
                                                             <div class="mb-3">
                                                                 <label for="content" class="form-label">Post
                                                                     Content</label>
-                                                                <input type="text" class="form-control" id="content" placeholder="
-                                                            Post Content">
+                                                                <input type="text" class="form-control" id="content"
+                                                                    name="content" placeholder="Post Content">
                                                             </div>
                                                             <div class="mb-3">
-                                                                <label for="title" class="form-label">Post Image</label>
-                                                                <input type="text" class="form-control" id="title" placeholder="
-                                                                    Post Title">
+                                                                <form action="upload.php" method="post"
+                                                                    enctype="multipart/form-data">
+                                                                    Select image to upload:
+                                                                    <input type="file" name="image" id="fileToUpload">
+
+                                                                </form>
+
                                                             </div>
+
                                                         </form>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn
                                                             btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                        <button type="button" id="btnNewPost" class="btn
-                                                            btn-primary">Save</button>
+                                                        <button type="submit" class="btn
+                                                            btn-primary" value="submit"
+                                                            data-bs-dismiss="modal">Save</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -102,17 +108,19 @@ $posts = $GLOBALS['posts'];
                             <tbody>
                                 <?php
                                 if (count($posts)) {
+                                    $count = 1;
                                     foreach ($posts as $post) {
                                         echo '
                                                     <tr>
-                                                        <td>' . $post->id . '</td>
+                                                        <td>' . $count++ . '</td>
                                                         <td>' . $post->title . '</td>
                                                         <td>' . $post->content . '</td>
-                                                        <td><img src="' . $post->imageUrl . '" /></td>
+                                                        <td><img src="' . $post->image . '" /></td>
                                                     </tr>
                                                 ';
                                     }
-                                ?>
+
+                                    ?>
 
                                 <?php } else { ?>
                                     <tr>
