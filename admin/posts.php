@@ -30,79 +30,29 @@
                 <div class="col-md-10">
                     <h2>Post list</h2>
                     <form method="post" action="process_form.php">
-                        <label for="title">title</label>
+                        <label for="title">Title: </label>
                         <input type="text" id="title" name="title"><br><br>
-                        <label for="content">content</label>
+                        <label for="content">Content: </label>
                         <input type="text" id="content" name="content"><br><br>
-                        <label for="image">image</label>
-                        <input type="text" id="image" name="image"><br><br>
-                        <input type="submit" value="Submit">
+                        Select image to upload:
+                        <input type="file" name="image" id="image">
+
+                        <br><br>
+                        <input type="submit" value="Submit" class="btn btn-primary">
+                        <input type="submit" name="clear" class="btn btn-danger" value="Clear">
                     </form>
 
                     <div class="my-5">
                         <table class="table">
                             <thead>
                                 <tr>
+
                                     <th scope="col">#</th>
-                                    <th scope="col">Title</th>
-                                    <th scope="col">Content</th>
-                                    <th scope="col">Image</th>
-                                    <th scope="col">
-                                        <!-- Button trigger modal -->
-                                        <button type="button" class="btn
-                                            btn-primary" data-bs-toggle="modal" data-bs-target="#modalNewPost">
-                                            + (New Post)
-                                        </button>
+                                    <th scope="col" class="col-2">Title</th>
+                                    <th scope="col" class="col-4">Content</th>
+                                    <th scope="col" class="col-4">Image</th>
 
-                                        <!-- Modal -->
-                                        <div class="modal fade" id="modalNewPost" tabindex="-1"
-                                            aria-labelledby="modalNewPostLabel" aria-hidden="true"
-                                            action="../server/post.php" method="POST">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h1 class="modal-title
-                                                            fs-5" id="modalNewPostLabel">Create
-                                                            new Post</h1>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                            aria-label="Close"></button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <form id="frmNewPost" action="" method="post">
-                                                            <div class="mb-3">
-                                                                <label for="title" class="form-label">Post Title</label>
-                                                                <input type="text" class="form-control" id="title"
-                                                                    name="title" placeholder="Post Title">
-                                                            </div>
-                                                            <div class="mb-3">
-                                                                <label for="content" class="form-label">Post
-                                                                    Content</label>
-                                                                <input type="text" class="form-control" id="content"
-                                                                    name="content" placeholder="Post Content">
-                                                            </div>
-                                                            <div class="mb-3">
-                                                                <form action="upload.php" method="post"
-                                                                    enctype="multipart/form-data">
-                                                                    Select image to upload:
-                                                                    <input type="file" name="image" id="fileToUpload">
 
-                                                                </form>
-
-                                                            </div>
-
-                                                        </form>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn
-                                                            btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                        <button type="submit" class="btn
-                                                            btn-primary" value="submit"
-                                                            data-bs-dismiss="modal">Save</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -115,7 +65,7 @@
                                                         <td>' . $count++ . '</td>
                                                         <td>' . $post->title . '</td>
                                                         <td>' . $post->content . '</td>
-                                                        <td><img src="' . $post->image . '" /></td>
+                                                        <td><img src="../assets/img/' . $post->image . ' " width="500" height="300" /></td>
                                                     </tr>
                                                 ';
                                     }
@@ -124,7 +74,7 @@
 
                                 <?php } else { ?>
                                     <tr>
-                                        <td colspan="5">
+                                        <td colspan=" 5">
                                             <p>No record</p>
                                         </td>
                                     </tr>

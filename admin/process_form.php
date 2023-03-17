@@ -6,14 +6,13 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
+//Authorize
 if (!isset($_SESSION['auth'])) {
     header("Location: ../index.php");
     exit();
 }
 
-// $posts = $GLOBALS['posts'];
-// Query all posts from table
-
+//store data
 if (isset($_POST['title']) && isset($_POST['content'])) {
     $post = new Post();
     $post->title = $_POST['title'];
@@ -27,6 +26,13 @@ if (isset($_POST['title']) && isset($_POST['content'])) {
     if (is_array($_SESSION['posts'])) {
         array_push($_SESSION['posts'], $post);
     }
+
+    header("Location: ../admin/posts.php");
 }
 
-var_dump($_SESSION['posts']);
+//clear data
+if (isset($_POST['clear'])) {
+    $_SESSION['posts'] = array();
+}
+
+// var_dump($_SESSION['posts']);
