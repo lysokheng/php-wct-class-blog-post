@@ -30,15 +30,8 @@
                 <div class="col-md-10">
                     <h2>Post list</h2>
                     <form method="post" action="process_form.php">
-                        <label for="title">Title: </label>
-                        <input type="text" id="title" name="title"><br><br>
-                        <label for="content">Content: </label>
-                        <input type="text" id="content" name="content"><br><br>
-                        Select image to upload:
-                        <input type="file" name="image" id="image">
 
-                        <br><br>
-                        <input type="submit" value="Submit" class="btn btn-primary">
+                        <a class="btn btn-primary" href="create_post.php">Add</a>
                         <input type="submit" name="clear" class="btn btn-danger" value="Clear">
                     </form>
 
