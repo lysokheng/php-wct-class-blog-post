@@ -1,4 +1,4 @@
-<?php include 'process_form.php'; ?>
+<?php include 'functions.php'; ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -29,9 +29,9 @@
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-md-10">
                     <h2>Post list</h2>
-                    <form method="post" action="process_form.php">
+                    <form method="post" action="functions.php">
 
-                        <a class="btn btn-primary" href="create_post.php">Add</a>
+                        <a class="btn btn-primary" href="create.php">Add</a>
                         <input type="submit" name="clear" class="btn btn-danger" value="Clear">
                     </form>
 
