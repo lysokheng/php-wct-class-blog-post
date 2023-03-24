@@ -1,93 +1,100 @@
-<?php include 'functions.php'; ?>
-
-<!DOCTYPE html>
+<?php
+session_start();
+require 'dbcon.php';
+?>
+<!doctype html>
 <html lang="en">
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    <title>Clean Blog - Posts</title>
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-    <!-- Font Awesome icons (free version)-->
-    <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
-    <!-- Google fonts-->
-    <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet"
-        type="text/css" />
-    <link
-        href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800"
-        rel="stylesheet" type="text/css" />
-    <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="../css/styles.css" rel="stylesheet" />
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <title>Post CRUD</title>
 </head>
 
 <body>
-    <!-- Main Content-->
-    <main class="mb-4 mt-5">
-        <div class="container px-4 px-lg-5">
-            <div class="row gx-4 gx-lg-5 justify-content-center">
-                <div class="col-md-10">
-                    <h2>Post list</h2>
-                    <form method="post" action="functions.php">
 
-                        <a class="btn btn-primary" href="create.php">Add</a>
-                        <input type="submit" name="clear" class="btn btn-danger" value="Clear">
-                    </form>
+    <div class="container mt-4">
 
-                    <div class="my-5">
-                        <table class="table">
+        <?php include('message.php'); ?>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Post Details
+                            <a href="Post-create.php" class="btn btn-primary float-end">Add Posts</a>
+                        </h4>
+                    </div>
+                    <div class="card-body">
+
+                        <table class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-
-                                    <th scope="col">#</th>
-                                    <th scope="col" class="col-2">Title</th>
-                                    <th scope="col" class="col-4">Content</th>
-                                    <th scope="col" class="col-4">Image</th>
-
+                                    <th>ID</th>
+                                    <th>Title</th>
+                                    <th>Content</th>
+                                    <th>Image</th>
 
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
-                                if (count($_SESSION['posts'])) {
-                                    $count = 1;
-                                    foreach ($_SESSION['posts'] as $post) {
-                                        echo '
-                                                    <tr>
-                                                        <td>' . $count++ . '</td>
-                                                        <td>' . $post->title . '</td>
-                                                        <td>' . $post->content . '</td>
-                                                        <td><img src="../assets/img/' . $post->image . ' " width="500" height="300" /></td>
-                                                    </tr>
-                                                ';
+                                $query = "SELECT * FROM Posts";
+                                $query_run = mysqli_query($con, $query);
+
+                                if (mysqli_num_rows($query_run) > 0) {
+                                    foreach ($query_run as $post) {
+                                        ?>
+                                        <tr>
+                                            <td>
+                                                <?= $post['id']; ?>
+                                            </td>
+                                            <td>
+                                                <?= $post['title']; ?>
+                                            </td>
+                                            <td>
+                                                <?= $post['content']; ?>
+                                            </td>
+                                            <td>
+                                                <?php
+                                                echo "<img src='" . $post['image'] . "' width='300' height='200'>";
+                                                ?>
+                                            </td>
+
+                                            <td>
+                                                <a href="post-view.php?id=<?= $post['id']; ?>"
+                                                    class="btn btn-info btn-sm">View</a>
+                                                <a href="post-edit.php?id=<?= $post['id']; ?>"
+                                                    class="btn btn-success btn-sm">Edit</a>
+                                                <form action="code.php" method="post" class="d-inline">
+                                                    <button type="submit" name="delete_post" value="<?= $post['id']; ?>"
+                                                        class="btn btn-danger btn-sm">Delete</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                        <?php
                                     }
+                                } else {
+                                    echo "<h5> No Record Found </h5>";
+                                }
+                                ?>
 
-                                    ?>
-
-                                <?php } else { ?>
-                                    <tr>
-                                        <td colspan=" 5">
-                                            <p>No record</p>
-                                        </td>
-                                    </tr>
-                                <?php } ?>
                             </tbody>
                         </table>
+
                     </div>
                 </div>
             </div>
         </div>
-    </main>
-    <!-- Bootstrap core JS-->
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Core theme JS-->
-    <script src="js/scripts.js"></script>
-    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-    <!-- * *                               SB Forms JS                               * *-->
-    <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
-    <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-    <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+
 </body>
 
 </html>
