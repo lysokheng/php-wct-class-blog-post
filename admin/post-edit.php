@@ -42,31 +42,35 @@ require 'dbcon.php';
                             if (mysqli_num_rows($query_run) > 0) {
                                 $post = mysqli_fetch_array($query_run);
                                 ?>
-                        <form action="code.php" method="POST" enctype="multipart/form-data">
-                            <input type="hidden" name="post_id" value="<?= $post['id']; ?>">
+                                <form action="code.php" method="POST" enctype="multipart/form-data">
+                                    <input type="hidden" name="post_id" value="<?= $post['id']; ?>">
 
-                            <div class="mb-3">
-                                <label>Post Title</label>
-                                <input type="text" name="title" value="<?= $post['title']; ?>" class="form-control">
-                            </div>
-                            <div class="mb-3">
-                                <label>Post Content</label>
-                                <input type="text" name="content" value="<?= $post['content']; ?>" class="form-control">
-                            </div>
-                            <div class="mb-3">
-                                <label>Post Image</label>
-                                <input type="file" name="image" value="<?= $post['image']; ?>" class="form-control">
+                                    <div class="mb-3">
+                                        <label>Post Title</label>
+                                        <input type="text" name="title" value="<?= $post['title']; ?>" class="form-control">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label>Post Content</label>
+                                        <input type="text" name="content" value="<?= $post['content']; ?>" class="form-control">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label>Post Image</label>
+                                        <input type="file" name="image" value="<?= $post['image']; ?>" class="form-control">
+                                        <p class="form-control">
+                                            <?php
+                                            echo "<img src='" . $post['image'] . "' width='300' height='200'>";
+                                            ?>
+                                        </p>
+                                    </div>
 
-                            </div>
+                                    <div class="mb-3">
+                                        <button type="submit" name="update_post" class="btn btn-primary">
+                                            Update post
+                                        </button>
+                                    </div>
 
-                            <div class="mb-3">
-                                <button type="submit" name="update_post" class="btn btn-primary">
-                                    Update post
-                                </button>
-                            </div>
-
-                        </form>
-                        <?php
+                                </form>
+                                <?php
                             } else {
 
                                 echo "<h4>No Such Id Found</h4>";
